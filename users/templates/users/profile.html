@@ -1,0 +1,59 @@
+{% extends 'users/base.html' %}
+{% load static %}
+{% block title %}Your Profile{% endblock %}
+
+{% block content %}
+<style>
+    body {
+        background-image: url("https://img.freepik.com/premium-photo/two-square-badges-with-twitter-logo-new-x-logo-black-blue-gradient-background_284880-739.jpg?semt=ais_hybrid&w=740");
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+    }
+
+    .profile-card {
+        background: rgba(255, 255, 255, 0.9);
+        backdrop-filter: blur(10px);
+        border-radius: 15px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .profile-img {
+        width: 150px;
+        height: 150px;
+        object-fit: cover;
+        border-radius: 50%;
+        border: 4px solid #fff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+    }
+
+    .btn-social {
+        font-size: 1rem;
+        padding: 10px 20px;
+    }
+</style>
+
+<div class="container py-5 d-flex justify-content-center">
+    <div class="profile-card p-4 text-center" style="max-width: 600px; width: 100%;">
+        <h2 class="mb-4 text-primary">👤 Your Profile</h2>
+
+        {% if user.profile_picture %}
+            <img src="{{ user.profile_picture.url }}" alt="Profile Picture" class="profile-img mb-3">
+        {% else %}
+            <i class="bi bi-person-circle" style="font-size: 150px; color: #bbb;"></i>
+        {% endif %}
+
+        <ul class="list-group list-group-flush text-start my-4">
+            <li class="list-group-item bg-transparent"><strong>👤 Username:</strong> {{ user.username }}</li>
+            <li class="list-group-item bg-transparent"><strong>📧 Email:</strong> {{ user.email }}</li>
+            <li class="list-group-item bg-transparent"><strong>📝 Bio:</strong> {{ user.bio|default:"No bio provided." }}</li>
+        </ul>
+
+        <div class="d-grid gap-2 mb-3">
+            <a href="{% url 'users:edit_profile' %}" class="btn btn-warning btn-social">✏️ Edit Profile</a>
+            <a href="{% url 'integrations:twitter_feed' %}" class="btn btn-info btn-social text-white">🐦 View Twitter Feed</a>
+            <a href="{% url 'integrations:facebook_feed' %}" class="btn btn-primary btn-social">📘 View Facebook Feed</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Social Dashboard{% endblock %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        /* Custom Navbar Styling */
+        .navbar {
+            background: linear-gradient(90deg, #1e3a8a, #3b82f6); /* Blue gradient */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+            padding: 1rem 0; /* Vertical padding for a taller navbar */
+            font-family: 'Poppins', sans-serif; /* Modern font */
+        }
+
+        .navbar-brand {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: #ffffff !important;
+            letter-spacing: 1px;
+            transition: transform 0.3s ease, color 0.3s ease;
+        }
+
+        .navbar-brand:hover {
+            color: #f0f9ff !important; /* Lighter shade on hover */
+            transform: scale(1.05); /* Slight zoom effect */
+        }
+
+        .navbar .text-white {
+            font-size: 1rem;
+            font-weight: 400;
+            color: #e0f2fe !important; /* Soft white for username */
+        }
+
+        .btn-link {
+            color: #ffffff !important;
+            text-decoration: none;
+            font-weight: 400;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .btn-link:hover {
+            background-color: rgba(255, 255, 255, 0.1); /* Subtle hover background */
+            color: #f0f9ff !important;
+        }
+
+        .btn-outline-light {
+            border-color: #ffffff;
+            color: #ffffff;
+            font-weight: 400;
+            padding: 0.5rem 1.5rem;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .btn-outline-light:hover {
+            background-color: #ffffff;
+            color: #1e3a8a; /* Matches navbar gradient start */
+        }
+
+        /* Ensure responsiveness */
+        @media (max-width: 576px) {
+            .navbar-brand {
+                font-size: 1.5rem;
+            }
+
+            .navbar .text-white {
+                font-size: 0.9rem;
+            }
+
+            .btn-link, .btn-outline-light {
+                padding: 0.4rem 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'users:profile' %}">Social Dashboard</a>
+            <div>
+                {% if user.is_authenticated %}
+                    <span class="text-white me-2">Hi, {{ user.username }}</span>
+                    <form action="{% url 'users:logout' %}" method="post" style="display:inline;">
+                         {% csrf_token %}
+                         <button type="submit" class="btn btn-link">Logout</button>
+                    </form>
+                {% else %}
+                    <a href="{% url 'users:login' %}" class="btn btn-outline-light btn-sm">Login</a>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+    <div class="container">
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>

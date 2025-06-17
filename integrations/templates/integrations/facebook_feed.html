@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Facebook Feed</title>
+
+    <!-- Bootstrap 5 CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+    <div class="container mt-5">
+        <h2 class="mb-4 text-center text-primary">📘 Facebook Page Feed</h2>
+
+        {% for post in posts %}
+            <div class="card shadow-sm mb-4">
+                <div class="card-body">
+                    <p class="card-text">{{ post.message|linebreaksbr }}</p>
+                    <p class="text-muted small text-end">📅 {{ post.created_time }}</p>
+                </div>
+            </div>
+        {% empty %}
+            <div class="alert alert-info text-center">
+                No posts found.
+            </div>
+        {% endfor %}
+    </div>
+
+    <!-- Bootstrap JS (optional) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
