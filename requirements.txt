@@ -1,0 +1,7 @@
+Django>=4.2
+djangorestframework
+django-allauth
+requests
+tweepy
+python-dotenv
+django-crispy-forms
